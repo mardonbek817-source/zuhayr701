@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)file:///C:/Users/zuhayr/Downloads/zuhayr_portfolio.html -->
+<html lang="uz"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zuhayr — Developer</title>
+<link href="./Zuhayr — Developer_files/css2" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --fg: #f0ece3;
+    --accent: #c8ff00;
+    --muted: #3a3a3a;
+    --card: #141414;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Syne', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: all 0.15s ease;
+    opacity: 0.5;
+  }
+
+  /* Noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.3;
+  }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    border-bottom: 1px solid var(--muted);
+  }
+
+  .hero-left {
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 1px solid var(--muted);
+  }
+
+  .hero-right {
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(200,255,0,0.15) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+    50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+  }
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: #666;
+    letter-spacing: 0.1em;
+  }
+
+  .nav-dot {
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+    animation: blink 2s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  .hero-title {
+    font-size: clamp(72px, 10vw, 140px);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+  }
+
+  .hero-title .accent { color: var(--accent); }
+
+  .hero-subtitle {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: #666;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 24px;
+  }
+
+  .hero-desc {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #aaa;
+    max-width: 380px;
+  }
+
+  .big-number {
+    font-size: clamp(120px, 20vw, 280px);
+    font-weight: 800;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(200,255,0,0.2);
+    line-height: 1;
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    letter-spacing: -0.05em;
+  }
+
+  .available-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(200,255,0,0.1);
+    border: 1px solid rgba(200,255,0,0.3);
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 40px;
+  }
+
+  /* Services */
+  .section {
+    padding: 80px 60px;
+    border-bottom: 1px solid var(--muted);
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: #555;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 60px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--muted);
+    border: 1px solid var(--muted);
+  }
+
+  .service-card {
+    background: var(--card);
+    padding: 48px 40px;
+    transition: background 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .service-card:hover {
+    background: #1a1a1a;
+  }
+
+  .service-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 2px;
+    background: var(--accent);
+    transition: width 0.4s ease;
+  }
+
+  .service-card:hover::after { width: 100%; }
+
+  .service-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: #444;
+    margin-bottom: 32px;
+    letter-spacing: 0.2em;
+  }
+
+  .service-icon {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+
+  .service-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .service-desc {
+    font-size: 14px;
+    color: #777;
+    line-height: 1.6;
+  }
+
+  .service-price {
+    margin-top: 24px;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--accent);
+  }
+
+  /* Work */
+  .work-item {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    align-items: center;
+    gap: 40px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--muted);
+    transition: all 0.3s ease;
+  }
+
+  .work-item:hover { padding-left: 20px; }
+  .work-item:hover .work-arrow { color: var(--accent); transform: translateX(4px); }
+
+  .work-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: #444;
+  }
+
+  .work-title {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .work-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: #555;
+    background: #1a1a1a;
+    padding: 6px 12px;
+    border-radius: 4px;
+    letter-spacing: 0.1em;
+  }
+
+  .work-arrow {
+    font-size: 20px;
+    color: #333;
+    transition: all 0.3s ease;
+  }
+
+  /* Stack */
+  .stack-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .stack-item {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    padding: 10px 20px;
+    border: 1px solid var(--muted);
+    border-radius: 4px;
+    color: #888;
+    transition: all 0.3s ease;
+    letter-spacing: 0.05em;
+  }
+
+  .stack-item:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(200,255,0,0.05);
+  }
+
+  /* Contact */
+  .contact-section {
+    padding: 80px 60px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .contact-title {
+    font-size: clamp(48px, 6vw, 80px);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+
+  .contact-title .line2 { color: var(--accent); }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--accent);
+    color: #000;
+    padding: 18px 36px;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    margin-top: 40px;
+    text-transform: uppercase;
+  }
+
+  .cta-btn:hover {
+    background: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px rgba(200,255,0,0.2);
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .contact-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--muted);
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+  }
+
+  .contact-row span:first-child { color: #555; }
+  .contact-row span:last-child { color: var(--fg); }
+
+  /* Footer */
+  footer {
+    padding: 40px 60px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: #444;
+    letter-spacing: 0.1em;
+  }
+
+  /* Animations */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up:nth-child(1) { animation-delay: 0.1s; }
+  .fade-up:nth-child(2) { animation-delay: 0.2s; }
+  .fade-up:nth-child(3) { animation-delay: 0.3s; }
+  .fade-up:nth-child(4) { animation-delay: 0.4s; }
+
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 40px 24px; }
+    .section { padding: 60px 24px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .work-item { grid-template-columns: 1fr; gap: 8px; }
+    .contact-section { grid-template-columns: 1fr; padding: 60px 24px; }
+    footer { padding: 30px 24px; flex-direction: column; gap: 12px; }
+    body { cursor: auto; }
+    .cursor, .cursor-ring { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor" style="left: 686px; top: 369px; transform: scale(1);"></div>
+<div class="cursor-ring" id="cursorRing" style="left: 541.831px; top: 333.834px; transform: scale(1); opacity: 0.5;"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <nav class="nav fade-up">
+      <span><span class="nav-dot"></span>MAVJUD — BUYURTMA QABUL QILINADI</span>
+      <span>2026</span>
+    </nav>
+
+    <div>
+      <div class="fade-up" style="animation-delay:0.2s">
+        <div class="available-badge">
+          <span class="nav-dot"></span>
+          ISHGA TAYYOR
+        </div>
+        <h1 class="hero-title">
+          ZU<span class="accent">—</span><br>HAYR
+        </h1>
+        <p class="hero-subtitle">Computer Engineering · Developer</p>
+      </div>
+    </div>
+
+    <p class="hero-desc fade-up" style="animation-delay:0.4s">
+      Telegram bot va web sayt yasayman. Tez, sifatli, arzon. 
+      O'zbekistondagi bizneslar uchun raqamli yechimlar.
+    </p>
+  </div>
+
+  <div class="hero-right">
+    <div class="big-number">Z</div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section">
+  <p class="section-label">// Xizmatlar</p>
+  <div class="services-grid">
+    <div class="service-card fade-up">
+      <div class="service-num">001</div>
+      <div class="service-icon">🤖</div>
+      <h3 class="service-title">Telegram Bot</h3>
+      <p class="service-desc">Buyurtma qabul qilish, mijozlarga javob berish, avtomatik xabar yuborish botlari.</p>
+      <div class="service-price">$30 dan boshlab</div>
+    </div>
+    <div class="service-card fade-up">
+      <div class="service-num">002</div>
+      <div class="service-icon">🌐</div>
+      <h3 class="service-title">Web Sayt</h3>
+      <p class="service-desc">Biznes uchun landing page, portfolio, xizmat ko'rsatish saytlari.</p>
+      <div class="service-price">$50 dan boshlab</div>
+    </div>
+    <div class="service-card fade-up">
+      <div class="service-num">003</div>
+      <div class="service-icon">⚡</div>
+      <h3 class="service-title">Avtomatlashtirish</h3>
+      <p class="service-desc">Qo'lda bajariladigan ishlarni bot orqali avtomatik qilish. Vaqt va pul tejash.</p>
+      <div class="service-price">$50 dan boshlab</div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="section">
+  <p class="section-label">// Ishlar</p>
+  <div class="work-item fade-up">
+    <span class="work-num">01</span>
+    <div>
+      <div class="work-title">VFS Global Monitoring Bot</div>
+      <div style="margin-top:6px; font-size:13px; color:#666;">Viza navbatini avtomatik kuzatuvchi Telegram bot</div>
+    </div>
+    <span class="work-tag">PYTHON · AIOGRAM</span>
+    <span class="work-arrow">→</span>
+  </div>
+  <div class="work-item fade-up">
+    <span class="work-num">02</span>
+    <div>
+      <div class="work-title">Buyurtma qabul qilish boti</div>
+      <div style="margin-top:6px; font-size:13px; color:#666;">Restoran yoki do'kon uchun Telegram bot</div>
+    </div>
+    <span class="work-tag">TELEGRAM · BOT</span>
+    <span class="work-arrow">→</span>
+  </div>
+  <div class="work-item fade-up">
+    <span class="work-num">03</span>
+    <div>
+      <div class="work-title">Portfolio Sayt</div>
+      <div style="margin-top:6px; font-size:13px; color:#666;">Shu sahifa — HTML · CSS · JS</div>
+    </div>
+    <span class="work-tag">HTML · CSS · JS</span>
+    <span class="work-arrow">→</span>
+  </div>
+</section>
+
+<!-- STACK -->
+<section class="section">
+  <p class="section-label">// Texnologiyalar</p>
+  <div class="stack-grid">
+    <div class="stack-item">Python</div>
+    <div class="stack-item">aiogram</div>
+    <div class="stack-item">FastAPI</div>
+    <div class="stack-item">PostgreSQL</div>
+    <div class="stack-item">HTML / CSS</div>
+    <div class="stack-item">JavaScript</div>
+    <div class="stack-item">Playwright</div>
+    <div class="stack-item">Git</div>
+    <div class="stack-item">Linux</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section">
+  <div>
+    <p class="section-label">// Bog'lanish</p>
+    <h2 class="contact-title">
+      LOYIHA<br>
+      <span class="line2">BOSHLAYMIZMI?</span>
+    </h2>
+    <a href="https://t.me/Zuhayr701" target="_blank" class="cta-btn">
+      Telegram orqali yozing →
+    </a>
+  </div>
+  <div class="contact-info">
+    <div class="contact-row">
+      <span>Telegram</span>
+      <span>@Zuhayr701</span>
+    </div>
+    <div class="contact-row">
+      <span>Soha</span>
+      <span>Computer Engineering</span>
+    </div>
+    <div class="contact-row">
+      <span>Joylashuv</span>
+      <span>O'zbekiston</span>
+    </div>
+    <div class="contact-row">
+      <span>Holat</span>
+      <span style="color: var(--accent)">● Mavjud</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 ZUHAYR — DEVELOPER</span>
+  <span>TOSHKENT · O'ZBEKISTON</span>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx - 6 + 'px';
+    cursor.style.top = my - 6 + 'px';
+  });
+
+  function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx - 18 + 'px';
+    ring.style.top = ry - 18 + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  document.querySelectorAll('a, button, .service-card, .work-item, .stack-item').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'scale(2)';
+      ring.style.transform = 'scale(1.5)';
+      ring.style.opacity = '1';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'scale(1)';
+      ring.style.transform = 'scale(1)';
+      ring.style.opacity = '0.5';
+    });
+  });
+</script>
+
+
+</body></html>
